@@ -4,9 +4,9 @@ on:
   create
 
 jobs:
-  if: ${{ startsWith(github.ref,'refs/heads') }}
   create_pull_request:
     runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref,'refs/heads') }}
     steps:
       - uses: actions/github-script@v4
         env:
