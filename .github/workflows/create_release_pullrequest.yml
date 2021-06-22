@@ -17,12 +17,10 @@ jobs:
     steps:
       - name: checkout_code
         uses: actions/checkout@v2
-    steps:
       - name: get_merge_commit
         id: get_merge_commit
         run: |
           git log --oneline --abbrev-commit --merges v1..master
-    steps:
       - uses: actions/github-script@v4
         env:
           COMPARE_BRANCH: ${{ github.event.inputs.compare_branch }}
