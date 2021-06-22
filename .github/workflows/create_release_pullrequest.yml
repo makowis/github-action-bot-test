@@ -15,17 +15,24 @@ jobs:
   create_release_pullrequest:
     runs-on: ubuntu-latest
     steps:
+      - name: get_merge_commit
+        id: get_merge_commit
+        uses: actions/checkout@v2
+        run: |
+          git log --oneline --abbrev-commit --merges v1..master
+    steps:
       - uses: actions/github-script@v4
         env:
           COMPARE_BRANCH: ${{ github.event.inputs.compare_branch }}
           BASE_BRANCH: ${{ github.event.inputs.base_branch }}
+          PULL_BODY: ${{steps.get_merge_commit.outputs.result}}
         with:
           script: |
             github.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `RELEASE`,
-              body: `test`,
+              body: process.env.PULL_BODY,
               head: process.env.COMPARE_BRANCH,
               base: process.env.BASE_BRANCH
             })
