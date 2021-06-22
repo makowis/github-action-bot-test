@@ -5,19 +5,22 @@ on:
 
 jobs:
   comment:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
     steps:
-      - uses: actions/github-script@v4
-        env:
-          BRANCH: ${{ steps.create_branch.outputs.branch_name  }}
-          VERSION: ${{ steps.bump_version.outputs.VERSION }}
-        with:
-          script: |
-            github.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `chore(*): bump v${process.env.VERSION}`,
-              body: `version: ${process.env.BRANCH}`,
-              head: process.env.BRANCH,
-              base: "main"
-            })
+      - run: echo "${GITHUB_REF#refs/heads/}"
+      - run: echo "${GITHUB_REF_CONTEXT#refs/heads/}"
+    # steps:
+    #   - uses: actions/github-script@v4
+    #     env:
+    #       BRANCH: ${{ steps.create_branch.outputs.branch_name  }}
+    #       VERSION: ${{ steps.bump_version.outputs.VERSION }}
+    #     with:
+    #       script: |
+    #         github.pulls.create({
+    #           owner: context.repo.owner,
+    #           repo: context.repo.repo,
+    #           title: `chore(*): bump v${process.env.VERSION}`,
+    #           body: `version: ${process.env.BRANCH}`,
+    #           head: process.env.BRANCH,
+    #           base: "main"
+    #         })
