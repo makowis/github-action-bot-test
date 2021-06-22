@@ -2,7 +2,7 @@ name: Create pull request
 
 on:
   create:
-    tags-ignore:
+    branches:
       - '**'
 
 jobs:
