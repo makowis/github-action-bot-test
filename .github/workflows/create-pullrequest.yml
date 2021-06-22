@@ -4,6 +4,8 @@ on:
   create:
     branches:
       - '**'
+    tags-ignore:
+      - '**'
 
 jobs:
   comment:
