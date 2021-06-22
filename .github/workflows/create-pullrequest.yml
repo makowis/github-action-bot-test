@@ -19,5 +19,5 @@ jobs:
               title: `WIP ${process.env.BRANCH}`,
               body: `version: ${process.env.BRANCH}`,
               head: process.env.BRANCH,
-              base: "main"
+              base: "develop"
             })
