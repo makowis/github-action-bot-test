@@ -8,13 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v4
+        env:
+          BRANCH: ${{ GITHUB_REF#refs/heads/ }}
         with:
           script: |
             github.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `WIP ${GITHUB_REF#refs/heads/}`,
-              body: `version: ${GITHUB_REF#refs/heads/}`,
-              head: ${GITHUB_REF#refs/heads/},
+              title: `WIP ${process.env.BRANCH}`,
+              body: `version: ${process.env.BRANCH}`,
+              head: process.env.BRANCH,
               base: "main"
             })
