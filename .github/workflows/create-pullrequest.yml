@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/github-script@v4
         env:
-          BRANCH: ${{ steps.get_branch.outputs.branch_name  }}
+          BRANCH: ${{ steps.create_branch.outputs.branch_name  }}
           VERSION: ${{ steps.bump_version.outputs.VERSION }}
         with:
           script: |
