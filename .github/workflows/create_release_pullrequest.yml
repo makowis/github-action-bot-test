@@ -1,0 +1,31 @@
+name: create_release_pullrequest
+on:
+  workflow_dispatch:
+    inputs:
+      compare_branch:
+        description: 'compare branch'
+        required: true
+        default: 'develop'
+      base_branch:
+        description: 'base branch'
+        required: true
+        default: 'main'
+
+jobs:
+  create_release_pullrequest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v4
+        env:
+          COMPARE_BRANCH: ${{ github.event.inputs.compare_branch }}
+          BASE_BRANCH: ${{ github.event.inputs.base_branch }}
+        with:
+          script: |
+            github.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `RELEASE`,
+              body: `test`,
+              head: process.env.COMPARE_BRANCH,
+              base: process.env.BASE_BRANCH
+            })
