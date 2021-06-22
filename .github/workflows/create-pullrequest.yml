@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/github-script@v4
         env:
-          BRANCH: ${{ GITHUB_REF#refs/heads/ }}
+          BRANCH: ${{ github.ref }}
         with:
           script: |
             github.pulls.create({
